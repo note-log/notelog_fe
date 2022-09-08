@@ -5,10 +5,10 @@
       "@/*": [
         "src/*"
       ],
-      "@components": [
+      "@components/*": [
         "src/components/*"
       ],
-      "@pages": [
+      "@pages/*": [
         "src/pages/*"
       ]
     },
