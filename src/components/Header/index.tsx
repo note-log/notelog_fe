@@ -4,16 +4,19 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:50:40
  * @Company: ncuhome
- * @LastEditTime: 2022-09-08 13:53:08
+ * @LastEditTime: 2022-09-09 17:16:29
  * @FilePath: \notelog_fe\src\components\Header\index.tsx
  * @Description:
  */
+import { useStore } from "@/store";
+import { AccountCircle } from "@mui/icons-material";
 import {
   useScrollTrigger,
   Slide,
   AppBar,
   Toolbar,
   Typography,
+  Box,
 } from "@mui/material";
 import React from "react";
 interface Props {
@@ -28,7 +31,8 @@ function HideOnScroll(props: Props) {
     </Slide>
   );
 }
-export default function Header() {
+export default function Header({ auth = false }) {
+  const { username } = useStore();
   return (
     <React.Fragment>
       <HideOnScroll>
@@ -37,6 +41,17 @@ export default function Header() {
             <Typography variant="h6" component="div">
               Note Log
             </Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            {auth && (
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex", alignItems: "center" },
+                }}
+              >
+                <AccountCircle sx={{ marginRight: 1 }} />
+                <Typography variant="h6">{username}</Typography>
+              </Box>
+            )}
           </Toolbar>
         </AppBar>
       </HideOnScroll>

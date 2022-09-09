@@ -13,6 +13,11 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Header from "@components/Header";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { post } from "@utils/api";
+import { Response } from "@/store";
+import Toast from "@components/Toast";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 type Inputs = {
   username: string;
   password: string;
@@ -21,13 +26,34 @@ type Inputs = {
   phone: string;
 };
 export default function SignUp() {
+  const navigate = useNavigate();
+  const [isSuccess, setIsSuccess] = useState<boolean>();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => navigate("/login"), 1000);
+    }
+  }, [isSuccess]);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    post("/api/user/register", {
+      username: data.username,
+      password: data.password,
+      email: data.email,
+      phone: data.phone,
+    })
+      .then((res) => {
+        Toast.success((res as Response).message);
+        setIsSuccess(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <CssBaseline />
@@ -58,7 +84,7 @@ export default function SignUp() {
                   {...register("username", {
                     required: "no username is dame",
                     minLength: { value: 6, message: "too short" },
-                    maxLength: { value: 10, message: "too long" },
+                    maxLength: { value: 20, message: "too long" },
                   })}
                   helperText={errors.username ? errors.username.message : ""}
                   error={Boolean(errors.username)}
@@ -117,9 +143,9 @@ export default function SignUp() {
                     required: "no password is dame",
                     pattern: {
                       value:
-                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9~!@#$%^&*]{8,16}$/,
+                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9~!@#$%^&*]{8,32}$/,
                       message:
-                        "必须包含大小写字母和数字的组合，可以使用特殊字符(~!@#$%^&*)，长度在8-16之间",
+                        "必须包含大小写字母和数字的组合，可以使用特殊字符(~!@#$%^&*)，长度在8-32之间",
                     },
                   })}
                   helperText={errors.password ? errors.password.message : ""}

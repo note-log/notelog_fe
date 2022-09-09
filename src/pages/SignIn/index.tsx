@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 11:10:04
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 11:16:06
+ * @LastEditTime: 2022-09-09 16:20:28
  * @FilePath: \notelog_fe\src\pages\SignIn\index.tsx
  * @Description:
  */
@@ -24,21 +24,42 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Toast from "@components/Toast";
+import { post } from "@/utils/api";
+import { Response } from "@/store";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 type Inputs = {
   username: string;
   password: string;
 };
 
 export default function SignIn() {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    Toast.info(data.username);
-    console.log(data);
+    post("/api/auth/login", {
+      username: data.username,
+      password: data.password,
+    })
+      .then((res) => {
+        Toast.success((res as Response).message);
+        localStorage.setItem("token", (res as Response).data.token);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+  useEffect(() => {
+    if (isLoggedIn) {
+      setTimeout(() => navigate("/"), 1000);
+    }
+  }, [isLoggedIn]);
   return (
     <>
       <Header />
@@ -85,7 +106,7 @@ export default function SignIn() {
                 {...register("username", {
                   required: "no username is dame",
                   minLength: { value: 6, message: "too short" },
-                  maxLength: { value: 10, message: "too long" },
+                  maxLength: { value: 20, message: "too long" },
                 })}
                 helperText={errors.username ? errors.username.message : ""}
                 error={Boolean(errors.username)}
@@ -102,9 +123,9 @@ export default function SignIn() {
                   required: "no password is dame",
                   pattern: {
                     value:
-                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9~!@#$%^&*]{8,16}$/,
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9~!@#$%^&*]{8,32}$/,
                     message:
-                      "必须包含大小写字母和数字的组合，可以使用特殊字符(~!@#$%^&*)，长度在8-16之间",
+                      "必须包含大小写字母和数字的组合，可以使用特殊字符(~!@#$%^&*)，长度在8-32之间",
                   },
                 })}
                 helperText={errors.password ? errors.password.message : ""}

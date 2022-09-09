@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-09 09:58:33
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 11:40:58
+ * @LastEditTime: 2022-09-09 14:26:04
  * @FilePath: \notelog_fe\src\utils\api.ts
  * @Description:
  */
@@ -15,7 +15,7 @@ import axios, {
   AxiosRequestHeaders,
   AxiosResponse,
 } from "axios";
-axios.defaults.baseURL = "localhost:8081";
+axios.defaults.baseURL = "http://localhost:8081";
 axios.defaults.timeout = 7500;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -38,7 +38,7 @@ axios.interceptors.response.use(
     return Promise.resolve(response);
   },
   (error) => {
-    const code = error.response.statusCode;
+    const code = error.response.status;
     if (code) {
       switch (code) {
         case 200:
@@ -103,7 +103,7 @@ export const put = (url: string, data: any = {}) => {
         resolve(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        reject(err.data);
       });
   });
 };
