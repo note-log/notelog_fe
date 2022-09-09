@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 11:10:04
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 16:20:28
+ * @LastEditTime: 2022-09-09 20:13:22
  * @FilePath: \notelog_fe\src\pages\SignIn\index.tsx
  * @Description:
  */
@@ -47,8 +47,8 @@ export default function SignIn() {
       password: data.password,
     })
       .then((res) => {
-        Toast.success((res as Response).message);
-        localStorage.setItem("token", (res as Response).data.token);
+        Toast.success((res as Response<string>).message);
+        localStorage.setItem("token", (res as Response<string>).data.token);
         setIsLoggedIn(true);
       })
       .catch((err) => {
@@ -62,8 +62,7 @@ export default function SignIn() {
   }, [isLoggedIn]);
   return (
     <>
-      <Header />
-      <Grid container component="main" sx={{ height: "93.1vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -82,6 +81,7 @@ export default function SignIn() {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Header style={{ position: "relative" }} />
           <Box
             sx={{
               my: 8,

@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:50:40
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 17:16:29
+ * @LastEditTime: 2022-09-09 20:12:55
  * @FilePath: \notelog_fe\src\components\Header\index.tsx
  * @Description:
  */
@@ -31,12 +31,12 @@ function HideOnScroll(props: Props) {
     </Slide>
   );
 }
-export default function Header({ auth = false }) {
+export default function Header({ auth = false, style = {} }) {
   const { username } = useStore();
   return (
     <React.Fragment>
       <HideOnScroll>
-        <AppBar>
+        <AppBar style={style}>
           <Toolbar>
             <Typography variant="h6" component="div">
               Note Log

@@ -47,7 +47,7 @@ export default function SignUp() {
       phone: data.phone,
     })
       .then((res) => {
-        Toast.success((res as Response).message);
+        Toast.success((res as Response<string>).message);
         setIsSuccess(true);
       })
       .catch((err) => {
