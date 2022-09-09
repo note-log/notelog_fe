@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 09:43:53
  * @Company: ncuhome
- * @LastEditTime: 2022-09-08 18:34:15
+ * @LastEditTime: 2022-09-09 11:16:24
  * @FilePath: \notelog_fe\src\App.tsx
  * @Description:
  */
@@ -14,6 +14,7 @@ import Home from "@pages/Home";
 import { ThemeOptions, createTheme, ThemeProvider } from "@mui/material/styles";
 import SignUp from "@pages/SignUp";
 import SignIn from "@pages/SignIn";
+import { GlobalToast } from "@components/Toast";
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -43,6 +44,7 @@ const theme = createTheme(themeOptions);
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalToast />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<SignUp />} />

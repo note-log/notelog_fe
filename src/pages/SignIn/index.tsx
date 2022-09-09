@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 11:10:04
  * @Company: ncuhome
- * @LastEditTime: 2022-09-08 22:58:36
+ * @LastEditTime: 2022-09-09 11:16:06
  * @FilePath: \notelog_fe\src\pages\SignIn\index.tsx
  * @Description:
  */
@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Toast from "@components/Toast";
 type Inputs = {
   username: string;
   password: string;
@@ -34,11 +35,14 @@ export default function SignIn() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    Toast.info(data.username);
+    console.log(data);
+  };
   return (
     <>
       <Header />
-      <Grid container component="main" sx={{ height: "95vh" }}>
+      <Grid container component="main" sx={{ height: "93.1vh" }}>
         <CssBaseline />
         <Grid
           item
