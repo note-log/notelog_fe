@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-09 10:25:09
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 11:31:21
+ * @LastEditTime: 2022-09-09 11:35:23
  * @FilePath: \notelog_fe\src\components\Toast\index.tsx
  * @Description:
  */
@@ -45,7 +45,7 @@ export function GlobalToast() {
       setMessage(message);
       setLevel("warning");
       setOpen(true);
-    }
+    };
     Toast.success = (message: string) => {
       setMessage(message);
       setLevel("success");
@@ -64,7 +64,11 @@ export function GlobalToast() {
   };
   return (
     <>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity={level} sx={{ width: "100%" }}>
           {message}
         </Alert>
