@@ -1,11 +1,14 @@
 import { useRefresh } from "@/store";
 import { put } from "@/utils/api";
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import { useState } from "react";
@@ -25,7 +28,7 @@ interface Props {
   handleClose: () => void;
 }
 export default function NoteForm(props: Props) {
-  const {setRefresh} = useRefresh();
+  const { setRefresh } = useRefresh();
   const [content, setContent] = useState("");
   const [location, setLocation] = useState("");
   const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +41,7 @@ export default function NoteForm(props: Props) {
     props.handleClose();
     setContent("");
     setLocation("");
-  }
+  };
   const handleSubmit = () => {
     put("/api/note", {
       content: content,
@@ -75,6 +78,13 @@ export default function NoteForm(props: Props) {
           variant="standard"
           value={location}
           onChange={handleLocationChange}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AddLocationAltIcon />
+              </InputAdornment>
+            ),
+          }}
         />
       </DialogContent>
       <DialogActions>

@@ -1,12 +1,13 @@
 import { Response, Note, useRefresh } from "@/store";
 import { get, post } from "@/utils/api";
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
@@ -88,6 +89,13 @@ export default function NoteDetail(props: Props) {
           variant="standard"
           value={location}
           onChange={handleLocationChange}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AddLocationAltIcon />
+              </InputAdornment>
+            ),
+          }}
         />
       </DialogContent>
       <DialogActions>

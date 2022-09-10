@@ -8,7 +8,7 @@ import NoteDetail from "@components/NoteDetail";
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-09 18:06:35
  * @Company: ncuhome
- * @LastEditTime: 2022-09-10 19:49:02
+ * @LastEditTime: 2022-09-10 20:10:37
  * @FilePath: /note-log/src/components/NoteCard/index.tsx
  * @Description:
  */
@@ -19,7 +19,6 @@ interface Props {
 export default function NoteCard(props: Props) {
   const [open, setOpen] = useState<boolean>(false);
   const handleClick = () => {
-    console.log(props.content);
     setOpen(true);
   };
   const handleClose = () => {

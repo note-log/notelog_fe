@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:49:23
  * @Company: ncuhome
- * @LastEditTime: 2022-09-10 19:49:07
+ * @LastEditTime: 2022-09-10 20:10:47
  * @FilePath: /note-log/src/pages/Home/index.tsx
  * @Description:
  */
@@ -40,7 +40,6 @@ export default function Home() {
     if (refresh) {
       setRefresh(false);
       fetchNote().then((res) => {
-        console.log(res);
         setNotes((res as Response<Array<Note>>).data.notes);
       });
     }
