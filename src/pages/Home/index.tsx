@@ -4,7 +4,7 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:49:23
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 20:10:27
+ * @LastEditTime: 2022-09-09 23:54:45
  * @FilePath: \notelog_fe\src\pages\Home\index.tsx
  * @Description:
  */
@@ -13,10 +13,11 @@ import { get } from "@/utils/api";
 import { Response } from "@/store";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import { Box, Container, CssBaseline, Grid } from "@mui/material";
+import { CssBaseline, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NoteCard from "@/components/NoteCard";
+import NoteForm from "@/components/NoteForm";
 interface Note {
   id: number;
   content: string;
@@ -25,7 +26,10 @@ export default function Home() {
   const { username, auth, fetch } = useStore();
   const [notes, setNotes] = useState<Array<Note>>([]);
   const [refresh, setRefresh] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+  const handleClick = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   useEffect(() => {
     const fetchNote = async () => {
       try {
@@ -57,20 +61,17 @@ export default function Home() {
   return (
     <>
       <CssBaseline />
-      <Header auth={auth} />
-
+      <Header auth={auth} handleClick={handleClick} />
       <Grid container spacing={4} style={{ padding: 16 }}>
+        <NoteForm
+          open={open}
+          handleClose={handleClose}
+          setRefresh={setRefresh}
+        />
         {notes.map((note, index) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
               <NoteCard content={note.content} />
-            </Grid>
-          );
-        })}
-        {[...new Array(12)].map((_, index) => {
-          return (
-            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-              <NoteCard content={"hello world"} />
             </Grid>
           );
         })}
