@@ -8,8 +8,8 @@ import NoteDetail from "@components/NoteDetail";
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-09 18:06:35
  * @Company: ncuhome
- * @LastEditTime: 2022-09-10 20:10:37
- * @FilePath: /note-log/src/components/NoteCard/index.tsx
+ * @LastEditTime: 2022-09-10 22:02:37
+ * @FilePath: \notelog_fe\src\components\NoteCard\index.tsx
  * @Description:
  */
 interface Props {
@@ -28,9 +28,9 @@ export default function NoteCard(props: Props) {
     <>
       <Card style={{ minHeight: 300 }} onClick={handleClick}>
         <CardContent>
-          <Typography variant="body2">
+          <Typography variant="body2" component={"span"}>
             {props.content.split("\n").map((i, key) => {
-              if (i === "") return <br />;
+              if (i === "") return <br key={key}/>;
               else return <div key={key}>{i}</div>;
             })}
           </Typography>

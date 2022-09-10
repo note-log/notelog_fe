@@ -1,1 +1,12 @@
-
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+}
+body {
+  min-height: 100vh;
+  line-height: 1;
+  background: linear-gradient(#def7ff, #fff);
+}

@@ -4,8 +4,8 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:49:23
  * @Company: ncuhome
- * @LastEditTime: 2022-09-10 20:10:47
- * @FilePath: /note-log/src/pages/Home/index.tsx
+ * @LastEditTime: 2022-09-10 22:39:14
+ * @FilePath: \notelog_fe\src\pages\Home\index.tsx
  * @Description:
  */
 import { Note, useRefresh, useStore } from "@/store";
@@ -59,24 +59,27 @@ export default function Home() {
   return (
     <>
       <CssBaseline />
-      <Header auth={auth} handleClick={handleClick} />
+      <Header
+        auth={auth}
+        handleClick={handleClick}
+      />
       <Grid
         container
         spacing={4}
         className={style.background}
-        style={{ padding: 16 }}
+        style={{ padding: 16, alignContent: "flex-start", minHeight: "91.6vh" }}
       >
         <NoteForm open={open} handleClose={handleClose} />
-        {notes.map((note, index) => {
+        {notes.map((note) => {
           return (
-            <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
+            <Grid item key={note.id} xs={12} sm={6} md={3} lg={2}>
               <NoteCard content={note.content} noteId={note.id} />
             </Grid>
           );
         })}
       </Grid>
       {/* sx里面可以写style，mt代表margin-top */}
-      <Footer sx={{ pt: 4 }} className={style.background} />
+      <Footer sx={{ pt: 4, pb: 3 }} className={style.background} />
     </>
   );
 }
