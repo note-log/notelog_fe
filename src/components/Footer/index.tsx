@@ -4,13 +4,14 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:50:51
  * @Company: ncuhome
- * @LastEditTime: 2022-09-08 15:39:00
- * @FilePath: \notelog_fe\src\components\Footer\index.tsx
+ * @LastEditTime: 2022-09-10 18:49:42
+ * @FilePath: /note-log/src/components/Footer/index.tsx
  * @Description:
  */
 import { Link, SxProps, Theme, Typography } from "@mui/material";
 interface Props {
   sx: SxProps<Theme>
+  className: string
 }
 export default function Footer(props: Props) {
   return (

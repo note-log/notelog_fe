@@ -4,8 +4,8 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-09 14:40:21
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 18:19:44
- * @FilePath: \notelog_fe\src\store\index.ts
+ * @LastEditTime: 2022-09-10 19:46:12
+ * @FilePath: /note-log/src/store/index.ts
  * @Description:
  */
 import { get } from "@utils/api";
@@ -20,6 +20,14 @@ interface User {
   username: string;
   auth: boolean;
   fetch: () => Promise<boolean>;
+}
+interface State {
+  refresh: boolean;
+  setRefresh: (value: boolean) => void;
+}
+export interface Note {
+  id: number;
+  content: string;
 }
 
 export const useStore = create<User>((set) => ({
@@ -38,4 +46,8 @@ export const useStore = create<User>((set) => ({
       return Promise.reject(false);
     }
   },
+}));
+export const useRefresh = create<State>((set) => ({
+  refresh: true,
+  setRefresh: (value: boolean) => set({ refresh: value }),
 }));

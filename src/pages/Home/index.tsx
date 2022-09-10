@@ -4,11 +4,11 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-07 22:49:23
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 23:54:45
- * @FilePath: \notelog_fe\src\pages\Home\index.tsx
+ * @LastEditTime: 2022-09-10 19:49:07
+ * @FilePath: /note-log/src/pages/Home/index.tsx
  * @Description:
  */
-import { useStore } from "@/store";
+import { Note, useRefresh, useStore } from "@/store";
 import { get } from "@/utils/api";
 import { Response } from "@/store";
 import Footer from "@components/Footer";
@@ -18,14 +18,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NoteCard from "@/components/NoteCard";
 import NoteForm from "@/components/NoteForm";
-interface Note {
-  id: number;
-  content: string;
-}
+import style from "./index.module.css";
+
 export default function Home() {
   const { username, auth, fetch } = useStore();
   const [notes, setNotes] = useState<Array<Note>>([]);
-  const [refresh, setRefresh] = useState<boolean>(true);
+  const { refresh, setRefresh } = useRefresh();
   const [open, setOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleClick = () => setOpen(true);
@@ -42,6 +40,7 @@ export default function Home() {
     if (refresh) {
       setRefresh(false);
       fetchNote().then((res) => {
+        console.log(res);
         setNotes((res as Response<Array<Note>>).data.notes);
       });
     }
@@ -62,22 +61,23 @@ export default function Home() {
     <>
       <CssBaseline />
       <Header auth={auth} handleClick={handleClick} />
-      <Grid container spacing={4} style={{ padding: 16 }}>
-        <NoteForm
-          open={open}
-          handleClose={handleClose}
-          setRefresh={setRefresh}
-        />
+      <Grid
+        container
+        spacing={4}
+        className={style.background}
+        style={{ padding: 16 }}
+      >
+        <NoteForm open={open} handleClose={handleClose} />
         {notes.map((note, index) => {
           return (
             <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-              <NoteCard content={note.content} />
+              <NoteCard content={note.content} noteId={note.id} />
             </Grid>
           );
         })}
       </Grid>
       {/* sx里面可以写style，mt代表margin-top */}
-      <Footer sx={{ mt: 5 }} />
+      <Footer sx={{ pt: 4 }} className={style.background} />
     </>
   );
 }

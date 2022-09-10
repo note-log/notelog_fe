@@ -4,8 +4,8 @@
  * @GithubUser: SnowWarri0r
  * @Date: 2022-09-09 09:58:33
  * @Company: ncuhome
- * @LastEditTime: 2022-09-09 14:26:04
- * @FilePath: \notelog_fe\src\utils\api.ts
+ * @LastEditTime: 2022-09-10 16:48:18
+ * @FilePath: /note-log/src/utils/api.ts
  * @Description:
  */
 import qs from "qs";
@@ -38,12 +38,23 @@ axios.interceptors.response.use(
     return Promise.resolve(response);
   },
   (error) => {
-    const code = error.response.status;
+    const code = error.response.data.status;
     if (code) {
       switch (code) {
-        case 200:
+        case 1:
           Toast.error(error.response.data.message);
           break;
+        case 401:
+          Toast.error("登录过期，请重新登录");
+          break;
+        case 404:
+          Toast.error("请求资源不存在");
+        case 409:
+          Toast.error("不可接受的请求");
+        case 410:
+          Toast.error("请求出现问题");
+        case 500:
+          Toast.error("服务器出现问题");
         default:
           Toast.error(error.response.data.message);
           break;
